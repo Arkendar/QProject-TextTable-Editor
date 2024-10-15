@@ -27,6 +27,7 @@ private slots:
     void replaceText();
     void copyText();
     void pasteText();
+    void on_addRowButton_clicked();
 
 private:
     Ui::MainWindow *ui;

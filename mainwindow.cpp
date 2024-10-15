@@ -160,3 +160,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept(); // Закрываем окно
 }
 
+void MainWindow::on_addRowButton_clicked()
+{
+    int currentRowCount = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(currentRowCount);
+}
