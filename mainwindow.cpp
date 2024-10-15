@@ -172,11 +172,29 @@ void MainWindow::on_removeRowButton_clicked()
     // Получаем текущий индекс выбранной строки
     int currentRow = ui->tableWidget->currentRow();
 
-    // Если строка выбрана (т.е. индекс не равен -1), удаляем её
+    // Если строка выбрана удаляем её
     if (currentRow != -1) {
         ui->tableWidget->removeRow(currentRow);
     } else {
-        // Если строка не выбрана, можно показать сообщение пользователю
         QMessageBox::information(this, tr("Удаление строки"), tr("Пожалуйста, выберите строку для удаления."));
     }
+}
+
+void MainWindow::on_addColButton_clicked()
+{
+    int currentColumnCount = ui->tableWidget->columnCount();
+    ui->tableWidget->insertColumn(currentColumnCount);
+}
+
+void MainWindow::on_removeColButton_clicked()
+{
+    // Получаем текущий индекс выбранной колонки
+        int currentColumn = ui->tableWidget->currentColumn();
+
+        // Если колонка выбрана удаляем её
+        if (currentColumn != -1) {
+            ui->tableWidget->removeColumn(currentColumn);
+        } else {
+            QMessageBox::information(this, tr("Удаление колонки"), tr("Пожалуйста, выберите колонку для удаления."));
+        }
 }

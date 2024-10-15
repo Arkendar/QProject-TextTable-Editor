@@ -32,6 +32,10 @@ private slots:
 
     void on_removeRowButton_clicked();
 
+    void on_addColButton_clicked();
+
+    void on_removeColButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString tempFilePath = "temp.txt";
