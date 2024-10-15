@@ -17,10 +17,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>691</width>
-      <height>521</height>
+      <x>0</x>
+      <y>0</y>
+      <width>711</width>
+      <height>551</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -56,9 +56,9 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>60</y>
-        <width>691</width>
-        <height>431</height>
+        <y>100</y>
+        <width>701</width>
+        <height>421</height>
        </rect>
       </property>
       <row>
@@ -72,18 +72,46 @@ p, li { white-space: pre-wrap; }
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="addRowButton">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>10</y>
-        <width>121</width>
-        <height>28</height>
+        <y>0</y>
+        <width>91</width>
+        <height>91</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Добавить строку</string>
-      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Строки</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="addRowButton">
+         <property name="text">
+          <string>Добавить</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="removeRowButton">
+         <property name="text">
+          <string>Удалить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -231,16 +259,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>Вставить</string>
-   </property>
-  </action>
-  <action name="actionAddRow">
-   <property name="text">
-    <string>Добавть строку</string>
-   </property>
-  </action>
-  <action name="actionAddColumn">
-   <property name="text">
-    <string>Добавить колонку</string>
    </property>
   </action>
  </widget>

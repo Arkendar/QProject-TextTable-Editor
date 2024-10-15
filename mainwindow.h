@@ -29,6 +29,9 @@ private slots:
     void pasteText();
     void on_addRowButton_clicked();
 
+
+    void on_removeRowButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString tempFilePath = "temp.txt";
