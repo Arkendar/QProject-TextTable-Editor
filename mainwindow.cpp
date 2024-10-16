@@ -323,3 +323,18 @@ void MainWindow::on_strikeoutButton_clicked()
             }
         }
 }
+
+void MainWindow::on_fontComboBox_currentFontChanged(const QFont &fontName)
+{
+    // Изменение шрифта в textEdit
+       QFont font(fontName);
+       ui->textEdit->setCurrentFont(font);
+
+       // Изменение шрифта в выделенных ячейках tableWidget
+       QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+       for (QTableWidgetItem* item : selectedItems) {
+           if (item) {
+               item->setFont(font); // Устанавливаем новый шрифт в выделенные ячейки
+           }
+       }
+}

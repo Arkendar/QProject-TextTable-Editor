@@ -47,6 +47,8 @@ private slots:
 
     void on_strikeoutButton_clicked();
 
+    void on_fontComboBox_currentFontChanged(const QFont &f);
+
 private:
     Ui::MainWindow *ui;
     QString tempFilePath = "temp.txt";
