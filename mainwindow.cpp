@@ -334,7 +334,27 @@ void MainWindow::on_fontComboBox_currentFontChanged(const QFont &fontName)
        QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
        for (QTableWidgetItem* item : selectedItems) {
            if (item) {
-               item->setFont(font); // Устанавливаем новый шрифт в выделенные ячейки
+               item->setFont(font);
            }
        }
+}
+
+// Слот для обновления размера шрифта
+void MainWindow::on_spinFontSize_valueChanged(int arg1)
+{
+        QTextCursor cursor = ui->textEdit->textCursor();
+        if (cursor.hasSelection()) {
+            QTextCharFormat format;
+            format.setFontPointSize(arg1);
+            cursor.mergeCharFormat(format);
+        }
+
+        QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+        for (QTableWidgetItem* item : selectedItems) {
+            if (item) {
+                QFont font = item->font();
+                font.setPointSize(arg1);
+                item->setFont(font);
+            }
+        }
 }

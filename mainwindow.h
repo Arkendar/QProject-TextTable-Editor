@@ -49,6 +49,8 @@ private slots:
 
     void on_fontComboBox_currentFontChanged(const QFont &f);
 
+    void on_spinFontSize_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QString tempFilePath = "temp.txt";
