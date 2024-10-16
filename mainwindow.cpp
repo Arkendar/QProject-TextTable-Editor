@@ -219,3 +219,45 @@ void MainWindow::on_boldButton_clicked()
         }
     }
 }
+
+void MainWindow::on_italicButton_clicked()
+{
+    // Изменение курсива текста в textEdit
+    QTextCursor cursor = ui->textEdit->textCursor();
+    if (cursor.hasSelection()) {
+        QTextCharFormat format;
+        format.setFontItalic(!cursor.charFormat().fontItalic());
+        cursor.mergeCharFormat(format);
+    }
+
+    // Изменение курсива текста в выделенных ячейках tableWidget
+    QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+    for (QTableWidgetItem* item : selectedItems) {
+        if (item) {
+            QFont font = item->font();
+            font.setItalic(!font.italic());
+            item->setFont(font);
+        }
+    }
+}
+
+void MainWindow::on_strikeoutButton_clicked()
+{
+    // Изменение зачеркнутого текста в textEdit
+        QTextCursor cursor = ui->textEdit->textCursor();
+        if (cursor.hasSelection()) {
+            QTextCharFormat format;
+            format.setFontStrikeOut(!cursor.charFormat().fontStrikeOut());
+            cursor.mergeCharFormat(format);
+        }
+
+        // Изменение зачеркнутого текста в выделенных ячейках tableWidget
+        QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+        for (QTableWidgetItem* item : selectedItems) {
+            if (item) {
+                QFont font = item->font();
+                font.setStrikeOut(!font.strikeOut());
+                item->setFont(font);
+            }
+        }
+}

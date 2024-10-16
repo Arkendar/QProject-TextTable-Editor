@@ -38,6 +38,10 @@ private slots:
 
     void on_boldButton_clicked();
 
+    void on_italicButton_clicked();
+
+    void on_strikeoutButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString tempFilePath = "temp.txt";
