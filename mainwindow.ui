@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1058</width>
-    <height>649</height>
+    <width>1047</width>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,15 +21,18 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>70</y>
       <width>1051</width>
-      <height>581</height>
+      <height>511</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>1</number>
     </property>
     <widget class="QWidget" name="tab">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <attribute name="title">
       <string>Tab 1</string>
      </attribute>
@@ -37,9 +40,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>130</y>
+        <y>0</y>
         <width>1021</width>
-        <height>411</height>
+        <height>541</height>
        </rect>
       </property>
       <property name="html">
@@ -59,17 +62,44 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>100</y>
+        <y>40</y>
         <width>1051</width>
-        <height>441</height>
+        <height>501</height>
        </rect>
       </property>
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+       <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="rowCount">
+       <number>5</number>
+      </property>
+      <property name="columnCount">
+       <number>5</number>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>true</bool>
+      </attribute>
       <row>
        <property name="text">
         <string>1</string>
@@ -85,6 +115,8 @@ p, li { white-space: pre-wrap; }
         <string>3</string>
        </property>
       </row>
+      <row/>
+      <row/>
       <column>
        <property name="text">
         <string>1</string>
@@ -100,22 +132,32 @@ p, li { white-space: pre-wrap; }
         <string>3</string>
        </property>
       </column>
+      <column/>
+      <column/>
+      <item row="0" column="0">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+      </item>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>100</x>
+        <x>380</x>
         <y>0</y>
-        <width>95</width>
-        <height>93</height>
+        <width>271</width>
+        <height>30</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
+           <pointsize>8</pointsize>
           </font>
          </property>
          <property name="text">
@@ -129,14 +171,14 @@ p, li { white-space: pre-wrap; }
        <item>
         <widget class="QPushButton" name="addColButton">
          <property name="text">
-          <string>Добавить</string>
+          <string>+</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="removeColButton">
          <property name="text">
-          <string>Удалить</string>
+          <string>-</string>
          </property>
         </widget>
        </item>
@@ -147,16 +189,16 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>91</width>
-        <height>91</height>
+        <width>241</width>
+        <height>30</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="label">
          <property name="font">
           <font>
-           <pointsize>10</pointsize>
+           <pointsize>8</pointsize>
           </font>
          </property>
          <property name="text">
@@ -169,15 +211,24 @@ p, li { white-space: pre-wrap; }
        </item>
        <item>
         <widget class="QPushButton" name="addRowButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
-          <string>Добавить</string>
+          <string>+</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="removeRowButton">
          <property name="text">
-          <string>Удалить</string>
+          <string>-</string>
          </property>
         </widget>
        </item>
@@ -185,13 +236,39 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </widget>
+   <widget class="Line" name="line">
+    <property name="geometry">
+     <rect>
+      <x>-3</x>
+      <y>60</y>
+      <width>1061</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="boldButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>101</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Жирный</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1058</width>
+     <width>1047</width>
      <height>26</height>
     </rect>
    </property>

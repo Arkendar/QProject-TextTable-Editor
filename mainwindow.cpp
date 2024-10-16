@@ -198,3 +198,24 @@ void MainWindow::on_removeColButton_clicked()
             QMessageBox::information(this, tr("Удаление колонки"), tr("Пожалуйста, выберите колонку для удаления."));
         }
 }
+
+void MainWindow::on_boldButton_clicked()
+{
+    // Изменение жирности текста в textEdit
+    QTextCursor cursor = ui->textEdit->textCursor();
+    if (cursor.hasSelection()) {
+        QTextCharFormat format;
+        format.setFontWeight(cursor.charFormat().fontWeight() == QFont::Bold ? QFont::Normal : QFont::Bold);
+        cursor.mergeCharFormat(format);
+    }
+
+    // Изменение жирности текста в выделенных ячейках tableWidget
+    QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+    for (QTableWidgetItem* item : selectedItems) {
+        if (item) {
+            QFont font = item->font();
+            font.setBold(!font.bold());
+            item->setFont(font);
+        }
+    }
+}

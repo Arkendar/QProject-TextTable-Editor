@@ -36,6 +36,8 @@ private slots:
 
     void on_removeColButton_clicked();
 
+    void on_boldButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString tempFilePath = "temp.txt";
