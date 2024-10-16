@@ -27,6 +27,11 @@ private slots:
     void replaceText();
     void copyText();
     void pasteText();
+    void onSaveTable();
+    void onOpenTable();
+
+
+
     void on_addRowButton_clicked();
 
 

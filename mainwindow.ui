@@ -338,16 +338,18 @@ p, li { white-space: pre-wrap; }
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Фаил</string>
     </property>
     <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSaveTable"/>
+    <addaction name="actionOpenTable"/>
     <addaction name="actionClose"/>
    </widget>
    <widget class="QMenu" name="menuTool">
     <property name="title">
-     <string>Tool</string>
+     <string>Инструменты</string>
     </property>
     <addaction name="actionClear"/>
     <addaction name="actionReturn"/>
@@ -358,7 +360,7 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>Помощь</string>
     </property>
     <addaction name="actionAuthors"/>
     <addaction name="actionHelp"/>
@@ -386,7 +388,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionOpen">
    <property name="text">
-    <string>Открыть</string>
+    <string>Открыть текст</string>
    </property>
    <property name="toolTip">
     <string>Открыть</string>
@@ -394,7 +396,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSave">
    <property name="text">
-    <string>Сохранить</string>
+    <string>Сохранить текст</string>
    </property>
    <property name="toolTip">
     <string>Сохранить</string>
@@ -470,6 +472,16 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="toolTip">
     <string>Вставить</string>
+   </property>
+  </action>
+  <action name="actionSaveTable">
+   <property name="text">
+    <string>Сохранить таблицу</string>
+   </property>
+  </action>
+  <action name="actionOpenTable">
+   <property name="text">
+    <string>Открыть таблицу</string>
    </property>
   </action>
  </widget>
