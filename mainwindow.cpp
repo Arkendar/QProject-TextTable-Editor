@@ -137,6 +137,7 @@ void MainWindow::showAuthors()
 {
     QMessageBox::information(this, "Авторы", "Сивов Семен\n"
                                              "Швецов Павел\n"
+                                             "Иванов Максим\n"
                                              "ИП-215");
 }
 
