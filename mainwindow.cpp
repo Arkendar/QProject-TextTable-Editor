@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QCloseEvent>
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -357,4 +358,24 @@ void MainWindow::on_spinFontSize_valueChanged(int arg1)
                 item->setFont(font);
             }
         }
+}
+
+void MainWindow::on_colorButton_clicked()
+{
+        QColor color = QColorDialog::getColor(Qt::white, this, "Выбор цвета текста");
+        if (color.isValid()) {
+            QTextCharFormat format;
+            format.setForeground(color);
+            QTextCursor cursor = ui->textEdit->textCursor();
+            cursor.mergeCharFormat(format);
+
+            QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+            for (QTableWidgetItem* item : selectedItems) {
+                if (item) {
+                    item->setTextColor(color);
+                }
+            }
+        }
+
+
 }

@@ -169,6 +169,18 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QPushButton" name="colorButton">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Цвет</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
