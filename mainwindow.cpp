@@ -108,7 +108,10 @@ void MainWindow::onSaveTable()
                         if (font.strikeOut()) fontStyle += "text-decoration:line-through;";
                         // Цвет текста
                         fontStyle += "color:" + textColor.name() + ";";
-
+                        // Сохранение шрифта
+                        fontStyle += "font-family:" + font.family() + ";";
+                        // Сохранение размера шрифта
+                        fontStyle += "font-size:" + QString::number(font.pointSize()) + "pt;";
                         fontStyle += "'";
                     }
 
