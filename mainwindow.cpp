@@ -7,12 +7,14 @@
 #include <QInputDialog>
 #include <QCloseEvent>
 #include <QColorDialog>
+#include <QSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    loadSettings();
 
     // Привязываем действия из меню к слотам
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::onNewFile);
@@ -28,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionPaste, &QAction::triggered, this, &MainWindow::pasteText);
     connect(ui->actionSaveTable, &QAction::triggered, this, &MainWindow::onSaveTable);
     connect(ui->actionOpenTable, &QAction::triggered, this, &MainWindow::onOpenTable);
+    connect(ui->actionDefault, &QAction::triggered, this, &MainWindow::onDefaultSettings);
 }
 
 MainWindow::~MainWindow()
@@ -256,6 +259,50 @@ void MainWindow::pasteText()
     ui->textEdit->paste();
 }
 
+void MainWindow::onDefaultSettings(){
+
+    int font_size = 10;
+    QColor color = "Black";
+    int row_count = 5;
+    int column_count = 5;
+    QString font_family = "MS Shell Dlg 2";
+
+    ui->textEdit->selectAll();
+    QTextCursor cursor = ui->textEdit->textCursor();
+    QTextCharFormat format;
+
+    format.setFontWeight(QFont::Normal);
+    format.setFontItalic(false);
+    format.setFontStrikeOut(false);
+    format.setFontPointSize(font_size);
+    format.setForeground(color);
+    cursor.mergeCharFormat(format);
+    ui->textEdit->setFontFamily(font_family);
+
+    ui->fontComboBox->setCurrentFont(font_family);
+    ui->spinFontSize->setValue(font_size);
+
+    if (ui->tableWidget->rowCount() > row_count){
+        for (int i = ui->tableWidget->rowCount(); i >= row_count; --i){
+            ui->tableWidget->removeRow(i);
+        }
+    }else{
+        for (int i = ui->tableWidget->rowCount(); i < row_count; ++i){
+            ui->tableWidget->insertRow(i);
+        }
+    }
+
+    if (ui->tableWidget->columnCount() > column_count){
+        for (int i = ui->tableWidget->columnCount(); i >= column_count; --i){
+            ui->tableWidget->removeColumn(i);
+        }
+    }else{
+        for (int i = ui->tableWidget->columnCount(); i < column_count; ++i){
+            ui->tableWidget->insertColumn(i);
+        }
+    }
+}
+
 void MainWindow::showAuthors()
 {
     QMessageBox::information(this, "Авторы", "Сивов Семен\n"
@@ -279,10 +326,72 @@ void MainWindow::closeEvent(QCloseEvent *event)
             QMessageBox::No | QMessageBox::Yes,
             QMessageBox::Yes);
         if (resBtn == QMessageBox::Yes) {
+            saveSettings();
             onSaveFile();
         }
     }
     event->accept(); // Закрываем окно
+}
+
+void MainWindow::loadSettings() {
+    QSettings settings("Text_table_editor", "MyApp");
+
+    QString font_family = settings.value("Text_editor/font", "MS Shell Dlg 2").toString();
+    int font_size = settings.value("Text_editor/font_size", 10).toInt();
+    bool is_bold = settings.value("Text_editor/bold", false).toBool();
+    bool is_italic = settings.value("Text_editor/italic", false).toBool();
+    bool is_strike_out = settings.value("Text_editor/strike-out", false).toBool();
+    QColor color = settings.value("Text_editor/color", "black").value<QColor>();
+    int row_count = settings.value("Table_settings/rows", 5).toInt();
+    int column_count = settings.value("Table_settings/columns", 5).toInt();
+
+    ui->textEdit->selectAll();
+    QTextCursor cursor = ui->textEdit->textCursor();
+    QTextCharFormat format;
+
+    ui->textEdit->setFontFamily(font_family);
+    ui->fontComboBox->setCurrentFont(font_family);
+    ui->spinFontSize->setValue(font_size);
+    format.setFontPointSize(font_size);
+    format.setFontWeight(is_bold == false ? QFont::Normal : QFont::Bold);
+    format.setFontItalic(is_italic);
+    format.setFontStrikeOut(is_strike_out);
+    format.setForeground(color);
+
+    cursor.mergeCharFormat(format);
+
+    if (ui->tableWidget->rowCount() > row_count){
+        for (int i = ui->tableWidget->rowCount(); i >= row_count; --i){
+            ui->tableWidget->removeRow(i);
+        }
+    }else{
+        for (int i = ui->tableWidget->rowCount(); i < row_count; ++i){
+            ui->tableWidget->insertRow(i);
+        }
+    }
+
+    if (ui->tableWidget->columnCount() > column_count){
+        for (int i = ui->tableWidget->columnCount(); i >= column_count; --i){
+            ui->tableWidget->removeColumn(i);
+        }
+    }else{
+        for (int i = ui->tableWidget->columnCount(); i < column_count; ++i){
+            ui->tableWidget->insertColumn(i);
+        }
+    }
+
+}
+
+void MainWindow::saveSettings() {
+    QSettings settings("Text_table_editor", "MyApp");
+
+    settings.beginGroup("Table_settings");
+    int rowCount = ui->tableWidget->rowCount();
+    int columnCount = ui->tableWidget->columnCount();
+    settings.setValue("rows", rowCount);
+    settings.setValue("columns", columnCount);
+    settings.endGroup();
+
 }
 
 
@@ -330,11 +439,15 @@ void MainWindow::on_removeColButton_clicked()
 
 void MainWindow::on_boldButton_clicked()
 {
+    QSettings settings("Text_table_editor", "MyApp");
+
     // Изменение жирности текста в textEdit
     QTextCursor cursor = ui->textEdit->textCursor();
     if (cursor.hasSelection()) {
         QTextCharFormat format;
-        format.setFontWeight(cursor.charFormat().fontWeight() == QFont::Bold ? QFont::Normal : QFont::Bold);
+        bool is_bold = (cursor.charFormat().fontWeight() == QFont::Bold) ? 1 : 0;
+        format.setFontWeight(is_bold == 1 ? QFont::Normal : QFont::Bold);
+        settings.setValue("Text_editor/bold", !is_bold);
         cursor.mergeCharFormat(format);
     }
 
@@ -344,6 +457,7 @@ void MainWindow::on_boldButton_clicked()
         if (item) {
             QFont font = item->font();
             font.setBold(!font.bold());
+            settings.setValue("Text_editor/bold", !font.bold());
             item->setFont(font);
         }
     }
@@ -351,11 +465,15 @@ void MainWindow::on_boldButton_clicked()
 
 void MainWindow::on_italicButton_clicked()
 {
+    QSettings settings("Text_table_editor", "MyApp");
+
     // Изменение курсива текста в textEdit
     QTextCursor cursor = ui->textEdit->textCursor();
     if (cursor.hasSelection()) {
         QTextCharFormat format;
-        format.setFontItalic(!cursor.charFormat().fontItalic());
+        bool flag = !cursor.charFormat().fontItalic();
+        format.setFontItalic(flag);
+        settings.setValue("Text_editor/italic", flag);
         cursor.mergeCharFormat(format);
     }
 
@@ -364,7 +482,9 @@ void MainWindow::on_italicButton_clicked()
     for (QTableWidgetItem* item : selectedItems) {
         if (item) {
             QFont font = item->font();
-            font.setItalic(!font.italic());
+            bool flag = !font.italic();
+            font.setItalic(flag);
+            settings.setValue("Text_editor/italic", flag);
             item->setFont(font);
         }
     }
@@ -372,11 +492,15 @@ void MainWindow::on_italicButton_clicked()
 
 void MainWindow::on_strikeoutButton_clicked()
 {
+    QSettings settings("Text_table_editor", "MyApp");
+    bool flag = 0;
     // Изменение зачеркнутого текста в textEdit
         QTextCursor cursor = ui->textEdit->textCursor();
         if (cursor.hasSelection()) {
             QTextCharFormat format;
-            format.setFontStrikeOut(!cursor.charFormat().fontStrikeOut());
+            flag = !cursor.charFormat().fontStrikeOut();
+            format.setFontStrikeOut(flag);
+            settings.setValue("Text_editor/strike-out", flag);
             cursor.mergeCharFormat(format);
         }
 
@@ -385,7 +509,9 @@ void MainWindow::on_strikeoutButton_clicked()
         for (QTableWidgetItem* item : selectedItems) {
             if (item) {
                 QFont font = item->font();
-                font.setStrikeOut(!font.strikeOut());
+                flag = !font.strikeOut();
+                font.setStrikeOut(flag);
+                settings.setValue("Text_editor/strike-out", flag);
                 item->setFont(font);
             }
         }
@@ -393,6 +519,7 @@ void MainWindow::on_strikeoutButton_clicked()
 
 void MainWindow::on_fontComboBox_currentFontChanged(const QFont &fontName)
 {
+    QSettings settings("Text_table_editor", "MyApp");
     // Изменение шрифта в textEdit
        QFont font(fontName);
        ui->textEdit->setCurrentFont(font);
@@ -404,44 +531,49 @@ void MainWindow::on_fontComboBox_currentFontChanged(const QFont &fontName)
                item->setFont(font);
            }
        }
+       settings.setValue("Text_editor/font", fontName);
 }
 
 // Слот для обновления размера шрифта
 void MainWindow::on_spinFontSize_valueChanged(int arg1)
 {
-        QTextCursor cursor = ui->textEdit->textCursor();
-        if (cursor.hasSelection()) {
-            QTextCharFormat format;
-            format.setFontPointSize(arg1);
-            cursor.mergeCharFormat(format);
-        }
+    QSettings settings("Text_table_editor", "MyApp");
 
-        QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
-        for (QTableWidgetItem* item : selectedItems) {
-            if (item) {
-                QFont font = item->font();
-                font.setPointSize(arg1);
-                item->setFont(font);
-            }
+    QTextCursor cursor = ui->textEdit->textCursor();
+    if (cursor.hasSelection()) {
+        QTextCharFormat format;
+        format.setFontPointSize(arg1);
+        cursor.mergeCharFormat(format);
+    }
+
+    QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+    for (QTableWidgetItem* item : selectedItems) {
+        if (item) {
+            QFont font = item->font();
+            font.setPointSize(arg1);
+            item->setFont(font);
         }
+    }
+    settings.setValue("Text_editor/font_size", arg1);
 }
 
 void MainWindow::on_colorButton_clicked()
 {
-        QColor color = QColorDialog::getColor(Qt::white, this, "Выбор цвета текста");
-        if (color.isValid()) {
-            QTextCharFormat format;
-            format.setForeground(color);
-            QTextCursor cursor = ui->textEdit->textCursor();
-            cursor.mergeCharFormat(format);
+    QSettings settings("Text_table_editor", "MyApp");
 
-            QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
-            for (QTableWidgetItem* item : selectedItems) {
-                if (item) {
-                    item->setTextColor(color);
-                }
+    QColor color = QColorDialog::getColor(Qt::white, this, "Выбор цвета текста");
+    if (color.isValid()) {
+        QTextCharFormat format;
+        format.setForeground(color);
+        QTextCursor cursor = ui->textEdit->textCursor();
+        cursor.mergeCharFormat(format);
+
+        QList<QTableWidgetItem*> selectedItems = ui->tableWidget->selectedItems();
+        for (QTableWidgetItem* item : selectedItems) {
+            if (item) {
+                item->setTextColor(color);
             }
         }
-
-
+        settings.setValue("Text_editor/color", color);
+    }
 }

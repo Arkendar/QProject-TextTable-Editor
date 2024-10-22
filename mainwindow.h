@@ -27,6 +27,7 @@ private slots:
     void replaceText();
     void copyText();
     void pasteText();
+    void onDefaultSettings();
     void onSaveTable();
     void onOpenTable();
 
@@ -52,6 +53,10 @@ private slots:
     void on_spinFontSize_valueChanged(int arg1);
 
     void on_colorButton_clicked();
+
+    void saveSettings();
+
+    void loadSettings();
 
 private:
     Ui::MainWindow *ui;
