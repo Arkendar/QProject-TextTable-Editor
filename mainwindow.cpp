@@ -176,6 +176,29 @@ void MainWindow::onOpenTable()
                             font.setStrikeOut(true);
                             newItem->setFont(font);
                         }
+                        if (styleData.contains("font-size:")) {
+                            QFont font = newItem->font();
+                            font.setStrikeOut(true);
+                            newItem->setFont(font);
+                        }
+                        QFont font;
+                        // Извлечение размера шрифта
+                        QRegularExpression fontSizeRegex("font-size:(\\d+)pt");
+                        QRegularExpressionMatch fontSizeMatch = fontSizeRegex.match(styleData);
+                        if (fontSizeMatch.hasMatch()) {
+                            int fontSize = fontSizeMatch.captured(1).toInt();
+                            font.setPointSize(fontSize);
+                        }
+
+                        // Извлечение шрифта
+                        QRegularExpression fontFamilyRegex("font-family:([^;]+);");
+                        QRegularExpressionMatch fontFamilyMatch = fontFamilyRegex.match(styleData);
+                        if (fontFamilyMatch.hasMatch()) {
+                            QString fontFamily = fontFamilyMatch.captured(1);
+                            font.setFamily(fontFamily);
+                        }
+
+                        newItem->setFont(font);
                         QRegularExpression colorRegex("color:(#[0-9a-fA-F]{6})");
                         QRegularExpressionMatch colorMatch = colorRegex.match(styleData);
                         if (colorMatch.hasMatch()) {
@@ -318,6 +341,7 @@ void MainWindow::showHelp()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
+    saveSettings();
     // Проверяем, были ли изменения в тексте
     if (ui->textEdit->document()->isModified()) {
         QMessageBox::StandardButton resBtn = QMessageBox::question(this, tr("Закрыть"),
@@ -326,7 +350,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
             QMessageBox::No | QMessageBox::Yes,
             QMessageBox::Yes);
         if (resBtn == QMessageBox::Yes) {
-            saveSettings();
             onSaveFile();
         }
     }
