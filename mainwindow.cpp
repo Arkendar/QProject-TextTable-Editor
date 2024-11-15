@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "GraphicsEditor.h"
 #include <QFileDialog>
 #include <QFile>
 #include <QTextStream>
@@ -14,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    GraphicsEditor *graphicsEditor = new GraphicsEditor;
+    ui->tabWidget->addTab(graphicsEditor, "Graphical Editor");
     loadSettings();
 
     // Привязываем действия из меню к слотам
