@@ -26,16 +26,21 @@ CONFIG += c++11
 
 SOURCES += \
         draggableitem.cpp \
+        figuredialog.cpp \
+        figuretool.cpp \
         graphicseditor.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
         draggableitem.h \
+        figuredialog.h \
+        figuretool.h \
         graphicseditor.h \
         mainwindow.h
 
 FORMS += \
+        figuredialog.ui \
         mainwindow.ui
 
 # Default rules for deployment.

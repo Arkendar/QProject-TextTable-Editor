@@ -1,6 +1,9 @@
 #ifndef GRAPHICSEDITOR_H
 #define GRAPHICSEDITOR_H
 
+#include "FigureTool.h"
+#include "figuredialog.h"
+#include "draggableitem.h"
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -10,6 +13,16 @@
 #include <QGraphicsRectItem>
 #include <QMouseEvent>
 #include <QGraphicsLineItem>
+#include <QGraphicsEllipseItem>
+#include <QMouseEvent>
+#include <QGraphicsLineItem>
+#include <QBrush>
+#include <QColorDialog>
+#include <QInputDialog>
+#include <QPainter>
+#include <QFileDialog>
+#include <QImageWriter>
+#include <QMessageBox>
 
 class GraphicsEditor : public QWidget
 {

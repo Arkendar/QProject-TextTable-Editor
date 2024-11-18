@@ -1,15 +1,4 @@
 #include "GraphicsEditor.h"
-#include "draggableitem.h"
-#include <QGraphicsEllipseItem>  // Для работы с эллипсами
-#include <QMouseEvent>            // Для работы с событиями мыши
-#include <QGraphicsLineItem>     // Для работы с линиями
-#include <QBrush>
-#include <QColorDialog>
-#include <QInputDialog>
-#include <QPainter>
-#include <QFileDialog>
-#include <QImageWriter>
-#include <QMessageBox>
 
 GraphicsEditor::GraphicsEditor(QWidget *parent)
     : QWidget(parent),
@@ -92,13 +81,15 @@ GraphicsEditor::GraphicsEditor(QWidget *parent)
         view->setDragMode(QGraphicsView::NoDrag);  // Отключаем перемещение
     });
 
-    toolBar->addAction("Add Shape", [this]() {
+    toolBar->addAction("Add Figure", [this]() {
         QRectF rect(0, 0, 50, 50); // Размер фигуры
         auto *item = new DraggableItem(rect);
         item->setBrush(Qt::white);
         item->setPen(QPen(Qt::black));
         item->setPos(100, 100); // Начальная позиция
         scene->addItem(item);
+//        auto *dialog = new FigureDialog(scene, this); // Создаем окно с передачей сцены
+//        dialog->exec(); // Открываем диалог модально
     });
 
     toolBar->addAction("Remove Shape", [this]() {
