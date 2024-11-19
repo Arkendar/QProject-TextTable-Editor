@@ -7,16 +7,17 @@
 #include <QGraphicsPolygonItem>
 #include <QColorDialog>
 #include <QInputDialog>
+#include "draggableitem.h"
 
 class FigureTool {
 public:
     explicit FigureTool(QGraphicsScene *scene);
 
-    void addRectangle();
+    QGraphicsItem* addRectangle();
 
-    void addEllipse();
+    QGraphicsItem* addEllipse();
 
-    void addTriangle();
+    QGraphicsItem* addTriangle();
 
     void fillColor();
 

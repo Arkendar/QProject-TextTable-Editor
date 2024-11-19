@@ -82,14 +82,15 @@ GraphicsEditor::GraphicsEditor(QWidget *parent)
     });
 
     toolBar->addAction("Add Figure", [this]() {
-        QRectF rect(0, 0, 50, 50); // Размер фигуры
-        auto *item = new DraggableItem(rect);
-        item->setBrush(Qt::white);
-        item->setPen(QPen(Qt::black));
-        item->setPos(100, 100); // Начальная позиция
-        scene->addItem(item);
-//        auto *dialog = new FigureDialog(scene, this); // Создаем окно с передачей сцены
-//        dialog->exec(); // Открываем диалог модально
+//        QRectF rect(0, 0, 50, 50); // Размер фигуры
+//        auto *item = new DraggableItem();
+//        item->setBrush(Qt::white);
+//        item->setPen(QPen(Qt::black));
+//        item->setPos(100, 100); // Начальная позиция
+//        scene->addItem(item);
+        QGraphicsItem *item;
+        auto *dialog = new FigureDialog(scene, item, this); // Создаем окно с передачей сцены
+        dialog->exec(); // Открываем диалог модально
     });
 
     toolBar->addAction("Remove Shape", [this]() {

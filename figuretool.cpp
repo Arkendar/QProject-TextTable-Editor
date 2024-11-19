@@ -5,27 +5,29 @@ FigureTool::FigureTool(QGraphicsScene *scene)
     : scene(scene) {}
 
 // Метод для добавления прямоугольника
-void FigureTool::addRectangle() {
-    QRectF rect(0, 0, 100, 50);
+QGraphicsItem* FigureTool::addRectangle() {
+    QRectF rect(0, 0, 100, 100);
     auto *item = new QGraphicsRectItem(rect);
     item->setBrush(Qt::white);
     item->setPen(QPen(Qt::black, 2));
     item->setPos(100, 100);
     scene->addItem(item);
+    return item;
 }
 
 // Метод для добавления эллипса
-void FigureTool::addEllipse() {
+QGraphicsItem* FigureTool::addEllipse() {
     QRectF rect(0, 0, 50, 50);
     auto *item = new QGraphicsEllipseItem(rect);
     item->setBrush(Qt::white);
     item->setPen(QPen(Qt::black, 2));
     item->setPos(150, 150);
     scene->addItem(item);
+    return item;
 }
 
 // Метод для добавления треугольника
-void FigureTool::addTriangle() {
+QGraphicsItem* FigureTool::addTriangle() {
     QPolygonF triangle;
     triangle << QPointF(0, 50) << QPointF(50, 50) << QPointF(25, 0);
 
@@ -34,6 +36,7 @@ void FigureTool::addTriangle() {
     item->setPen(QPen(Qt::black, 2));
     item->setPos(200, 200);
     scene->addItem(item);
+    return item;
 }
 
 // Метод для изменения цвета заливки

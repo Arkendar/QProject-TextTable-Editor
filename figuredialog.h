@@ -15,6 +15,7 @@
 #include <QColorDialog>
 #include <unordered_map>
 #include "figuretool.h"
+#include "draggableitem.h"
 
 namespace Ui {
 class FigureDialog;
@@ -25,7 +26,7 @@ class FigureDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit FigureDialog(QGraphicsScene *scene, QWidget *parent = nullptr);
+    explicit FigureDialog(QGraphicsScene *scene,QGraphicsItem *currentItem, QWidget *parent = nullptr);
     ~FigureDialog();
 
 private slots:
@@ -38,6 +39,7 @@ private:
     QGraphicsScene *editorScene;
     QGraphicsView *previewView;
     QGraphicsScene *previewScene;
+    QGraphicsItem *currentItem;
     QGraphicsItem *currentPreviewItem;
     QColor fillColor;
     FigureTool *FigureTools;
