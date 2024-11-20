@@ -5,6 +5,9 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
 #include <QObject>
+#include <QMediaPlayer>
+#include <string>
+
 
 class MovingObject : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -19,6 +22,7 @@ public:
     void checkCollision();  // Проверка на столкновение
     void checkBoundaryCollision();
 
+    QString path = ":/sound/oan1.wav";
 };
 
 #endif // MOVINGOBJECT_H

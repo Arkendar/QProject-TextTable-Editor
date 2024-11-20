@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <cmath>
 #include "Wall.h"
+#include <QSound>
 
 
 MovingObject::MovingObject(QGraphicsScene *scene, const QPixmap &pixmap, int speedX, int speedY)
@@ -31,6 +32,10 @@ void MovingObject::checkCollision()
         // Проверяем, если это не сам объект и если объекты пересекаются
         // И исключаем из проверки элементы, которые являются границами сцены
         if (item != this && this->collidesWithItem(item) && !dynamic_cast<Wall*>(item)) {
+            // Воспроизводим звук при столкновении
+
+            QSound::play(this->path);
+
             // Получаем позицию центра столкнувшегося объекта
             QRectF itemRect = item->boundingRect();
             QPointF itemCenter = item->mapToScene(itemRect.center());
@@ -65,11 +70,16 @@ void MovingObject::checkBoundaryCollision()
     // Проверка для левой и правой границы
     if (x() <= 0 || x() >= scene->sceneRect().width() - pixmap().width()) {
         speedX = -speedX;  // Инвертируем горизонтальную скорость
+        // Воспроизводим звук при столкновении
+        QSound::play(this->path);
+
     }
 
     // Проверка для верхней и нижней границы
     if (y() <= 0 || y() >= scene->sceneRect().height() - pixmap().height()) {
         speedY = -speedY;  // Инвертируем вертикальную скорость
+        // Воспроизводим звук при столкновении
+        QSound::play(this->path);
     }
 }
 
