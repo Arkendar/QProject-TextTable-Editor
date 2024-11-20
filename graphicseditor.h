@@ -30,6 +30,7 @@ class GraphicsEditor : public QWidget
 
 public:
     explicit GraphicsEditor(QWidget *parent = nullptr);
+    void addMovingObject();
 
 protected:
     // Добавляем объявление метода eventFilter

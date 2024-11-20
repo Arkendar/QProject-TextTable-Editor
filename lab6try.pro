@@ -30,14 +30,16 @@ SOURCES += \
         figuretool.cpp \
         graphicseditor.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        movingobject.cpp
 
 HEADERS += \
         draggableitem.h \
         figuredialog.h \
         figuretool.h \
         graphicseditor.h \
-        mainwindow.h
+        mainwindow.h \
+        movingobject.h
 
 FORMS += \
         figuredialog.ui \

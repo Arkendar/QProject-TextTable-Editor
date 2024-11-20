@@ -1,4 +1,6 @@
 #include "GraphicsEditor.h"
+#include "MovingObject.h"  // Подключаем класс MovingObject
+#include <QTimer>
 
 GraphicsEditor::GraphicsEditor(QWidget *parent)
     : QWidget(parent),
@@ -174,6 +176,11 @@ GraphicsEditor::GraphicsEditor(QWidget *parent)
         }
     });
 
+    toolBar->addAction("Add Moving Object", [this]() {
+        addMovingObject();  // Добавляем движущийся объект
+    });
+
+
 
     view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     view->viewport()->installEventFilter(this);
@@ -287,4 +294,32 @@ bool GraphicsEditor::eventFilter(QObject *obj, QEvent *event)
     }
     return QWidget::eventFilter(obj, event);
 }
+
+void GraphicsEditor::addMovingObject() {
+    // Открыть диалог выбора файла для изображения
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "", tr("Images (*.png *.jpg *.jpeg *.bmp *.gif)"));
+
+    if (!fileName.isEmpty()) {
+        // Загружаем изображение из выбранного файла
+        QPixmap pixmap(fileName);
+
+        if (!pixmap.isNull()) {
+            // Создаем объект с выбранным изображением и начальной скоростью
+            MovingObject *object = new MovingObject(scene, pixmap, 5, 5);  // Задаем начальную скорость
+            scene->addItem(object);
+
+            // Настроим таймер для перемещения объекта
+            QTimer *timer = new QTimer(this);
+            connect(timer, &QTimer::timeout, object, &MovingObject::move);
+            timer->start(50);  // Обновление каждую 50 миллисекунд
+        } else {
+            // Если изображение не удалось загрузить
+            QMessageBox::warning(this, tr("Load Error"), tr("Failed to load image."));
+        }
+    } else {
+        // Если файл не был выбран
+        QMessageBox::information(this, tr("No File"), tr("No image file selected."));
+    }
+}
+
 
