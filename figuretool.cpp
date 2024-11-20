@@ -53,6 +53,49 @@ void FigureTool::fillColor(QGraphicsItem *item) {
     }
 }
 
+// Метод для изменения размеров фигуры
+void FigureTool::resizeShape(QGraphicsItem *item) {
+    if (!item) return; // Проверяем, что элемент не равен nullptr
+
+    // Для прямоугольника
+    if (auto *rectItem = dynamic_cast<QGraphicsRectItem *>(item)) {
+        QRectF currentRect = rectItem->rect();
+        bool ok;
+        int newWidth = QInputDialog::getInt(nullptr, "Resize Rectangle",
+                                            "Enter new width:",
+                                            currentRect.width(), 1, 1000, 1, &ok);
+        if (ok) {
+            rectItem->setRect(0, 0, newWidth, newWidth);
+        }
+    }
+    // Для круга (представленного как эллипс)
+    else if (auto *ellipseItem = dynamic_cast<QGraphicsEllipseItem *>(item)) {
+        QRectF currentRect = ellipseItem->rect();
+        bool ok;
+        int newWidth = QInputDialog::getInt(nullptr, "Resize Circle",
+                                            "Enter new diameter:",
+                                            currentRect.width(), 1, 1000, 1, &ok);
+        if (ok) {
+            ellipseItem->setRect(0, 0, newWidth, newWidth); // Окружность, поэтому ширина = высота
+        }
+    }
+    // Для треугольника (или многоугольника)
+    else if (auto *polygonItem = dynamic_cast<QGraphicsPolygonItem *>(item)) {
+        QPolygonF currentPolygon = polygonItem->polygon();
+        bool ok;
+        qreal scaleFactor = QInputDialog::getDouble(nullptr, "Resize Polygon",
+                                                    "Enter scale factor (e.g., 1.5):",
+                                                    1.0, 0.1, 10.0, 1, &ok);
+        if (ok) {
+            QPolygonF scaledPolygon;
+            for (const QPointF &point : currentPolygon) {
+                scaledPolygon << QPointF(point.x() * scaleFactor, point.y() * scaleFactor);
+            }
+            polygonItem->setPolygon(scaledPolygon);
+        }
+    }
+}
+
 
 // Метод для изменения цвета обводки
 void FigureTool::changeStroke() {
@@ -80,27 +123,6 @@ void FigureTool::changeStrokeWidth() {
                 QPen pen = shape->pen();
                 pen.setWidth(newWidth);
                 shape->setPen(pen);
-            }
-        }
-    }
-}
-
-// Метод для изменения размеров фигур
-void FigureTool::resizeShape() {
-    for (auto *item : scene->selectedItems()) {
-        if (auto *rectItem = dynamic_cast<QGraphicsRectItem*>(item)) {
-            QRectF currentRect = rectItem->rect();
-            bool ok;
-            int newWidth = QInputDialog::getInt(nullptr, "Resize Rectangle",
-                                                "Enter new width:",
-                                                currentRect.width(), 1, 1000, 1, &ok);
-            if (ok) {
-                int newHeight = QInputDialog::getInt(nullptr, "Resize Rectangle",
-                                                     "Enter new height:",
-                                                     currentRect.height(), 1, 1000, 1, &ok);
-                if (ok) {
-                    rectItem->setRect(0, 0, newWidth, newHeight);
-                }
             }
         }
     }

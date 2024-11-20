@@ -65,6 +65,7 @@ void DraggableRectItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 DraggableEllipseItem::DraggableEllipseItem(QGraphicsEllipseItem *Item)
     : QGraphicsEllipseItem(Item->rect())
 {
+    brush = new QBrush;
     *brush = Item->brush();
 
     setBrush(*brush);
@@ -94,6 +95,7 @@ void DraggableEllipseItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 DraggableTriangleItem::DraggableTriangleItem(QGraphicsPolygonItem *Item)
     : QGraphicsPolygonItem(Item->polygon())
 {
+    brush = new QBrush;
     *brush = Item->brush();
 
     setBrush(*brush);

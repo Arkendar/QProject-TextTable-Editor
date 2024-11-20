@@ -22,6 +22,12 @@ FigureDialog::FigureDialog(QGraphicsScene *scene, QGraphicsItem *currentItem, QW
         FigureTools->fillColor(currentPreviewItem);
     });
 
+    // Кнопка для изменения размера фигуры
+    connect(ui->resizeButton, &QPushButton::clicked, this, [this]() {
+        FigureTools->resizeShape(currentPreviewItem);
+    });
+
+
     connect(ui->okButton, &QPushButton::clicked, this, &FigureDialog::acceptFigure);
     connect(ui->resetButton, &QPushButton::clicked, this, &FigureDialog::resetSettings);
 
@@ -75,3 +81,4 @@ void FigureDialog::updatePreview()
         currentPreviewItem = FigureTools->addTriangle();
     }
 }
+

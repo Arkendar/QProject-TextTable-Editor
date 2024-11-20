@@ -34,6 +34,7 @@ private slots:
     void resetSettings();  // Сброс настроек
     void updatePreview();  // Обновление превью
 
+
 private:
     Ui::FigureDialog *ui;
     QGraphicsScene *editorScene;

@@ -25,7 +25,7 @@ public:
 
     void changeStrokeWidth();
 
-    void resizeShape();
+    void resizeShape(QGraphicsItem *item);
 
 private:
     QGraphicsScene *scene;
