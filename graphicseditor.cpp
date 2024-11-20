@@ -186,7 +186,7 @@ GraphicsEditor::GraphicsEditor(QWidget *parent)
 void GraphicsEditor::setupScene()
 {
     // Задаем размеры сцены
-    int sceneWidth = 800;
+    int sceneWidth = 600;
     int sceneHeight = 600;
     scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
 
