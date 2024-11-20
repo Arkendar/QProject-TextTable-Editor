@@ -45,16 +45,9 @@ void MovingObject::checkCollision()
                 qreal dotProduct = speedX * collisionVector.x() + speedY * collisionVector.y();
 
                 // Отражаем скорость от столкновения
-                speedX -= 2 * dotProduct * collisionVector.x();
-                speedY -= 2 * dotProduct * collisionVector.y();
+                speedX = -speedX;
+                speedY = -speedY;
 
-                // Чтобы избежать уменьшения скорости, сохраняем исходную скорость
-                qreal currentSpeed = sqrt(speedX * speedX + speedY * speedY);
-                qreal originalSpeed = sqrt(this->speedX * this->speedX + this->speedY * this->speedY);
-                if (currentSpeed != 0) {
-                    speedX = (speedX / currentSpeed) * originalSpeed;
-                    speedY = (speedY / currentSpeed) * originalSpeed;
-                }
 
                 // Чтобы объект не прошел сквозь другие объекты, минимально корректируем его позицию
                 qreal overlap = 5.0; // Слишком большое значение может привести к резкому движению
