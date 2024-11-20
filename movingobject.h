@@ -9,14 +9,16 @@
 class MovingObject : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 private:
-    int dx, dy; // Скорость по X и Y
     QGraphicsScene *scene;
+    int speedX;
+    int speedY;
 
 public:
     MovingObject(QGraphicsScene *scene, const QPixmap &pixmap, int speedX, int speedY);
+    void move();  // Перемещение объекта
+    void checkCollision();  // Проверка на столкновение
+    void checkBoundaryCollision();
 
-public slots:
-    void move();
 };
 
 #endif // MOVINGOBJECT_H

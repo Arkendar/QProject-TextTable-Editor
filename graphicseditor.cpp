@@ -1,6 +1,8 @@
 #include "GraphicsEditor.h"
 #include "MovingObject.h"  // Подключаем класс MovingObject
 #include <QTimer>
+#include "Wall.h"
+
 
 GraphicsEditor::GraphicsEditor(QWidget *parent)
     : QWidget(parent),
@@ -194,7 +196,7 @@ void GraphicsEditor::setupScene()
 {
     // Задаем размеры сцены
     int sceneWidth = 600;
-    int sceneHeight = 600;
+    int sceneHeight = 700;
     scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
 
     // Устанавливаем фон по умолчанию
@@ -208,13 +210,20 @@ void GraphicsEditor::setupWalls()
     wallPen.setWidth(5);
 
     // Верхняя стена
-    scene->addRect(0, 0, scene->width(), 5, wallPen, Qt::gray);
+    Wall *topWall = new Wall(0, 0, scene->width(), 5, scene);
+    scene->addItem(topWall);
+
     // Нижняя стена
-    scene->addRect(0, scene->height() - 5, scene->width(), 5, wallPen, Qt::gray);
+    Wall *bottomWall = new Wall(0, scene->height() - 5, scene->width(), 5, scene);
+    scene->addItem(bottomWall);
+
     // Левая стена
-    scene->addRect(0, 0, 5, scene->height(), wallPen, Qt::gray);
+    Wall *leftWall = new Wall(0, 0, 5, scene->height(), scene);
+    scene->addItem(leftWall);
+
     // Правая стена
-    scene->addRect(scene->width() - 5, 0, 5, scene->height(), wallPen, Qt::gray);
+    Wall *rightWall = new Wall(scene->width() - 5, 0, 5, scene->height(), scene);
+    scene->addItem(rightWall);
 }
 
 bool GraphicsEditor::eventFilter(QObject *obj, QEvent *event)
@@ -305,13 +314,13 @@ void GraphicsEditor::addMovingObject() {
 
         if (!pixmap.isNull()) {
             // Создаем объект с выбранным изображением и начальной скоростью
-            MovingObject *object = new MovingObject(scene, pixmap, 5, 5);  // Задаем начальную скорость
+            MovingObject *object = new MovingObject(scene, pixmap, 15, 15);  // Задаем начальную скорость
             scene->addItem(object);
 
             // Настроим таймер для перемещения объекта
             QTimer *timer = new QTimer(this);
             connect(timer, &QTimer::timeout, object, &MovingObject::move);
-            timer->start(50);  // Обновление каждую 50 миллисекунд
+            timer->start(30);  // Обновление каждую 50 миллисекунд
         } else {
             // Если изображение не удалось загрузить
             QMessageBox::warning(this, tr("Load Error"), tr("Failed to load image."));

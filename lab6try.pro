@@ -31,7 +31,8 @@ SOURCES += \
         graphicseditor.cpp \
         main.cpp \
         mainwindow.cpp \
-        movingobject.cpp
+        movingobject.cpp \
+        wall.cpp
 
 HEADERS += \
         draggableitem.h \
@@ -39,7 +40,8 @@ HEADERS += \
         figuretool.h \
         graphicseditor.h \
         mainwindow.h \
-        movingobject.h
+        movingobject.h \
+        wall.h
 
 FORMS += \
         figuredialog.ui \
