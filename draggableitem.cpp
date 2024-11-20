@@ -32,10 +32,13 @@ DraggableItem::~DraggableItem(){
     delete dragItem;
 }
 
-DraggableRectItem::DraggableRectItem(QGraphicsRectItem *rectItem)
-    : QGraphicsRectItem(rectItem->rect())
+DraggableRectItem::DraggableRectItem(QGraphicsRectItem *Item)
+    : QGraphicsRectItem(Item->rect())
 {
-    setBrush(QBrush(Qt::white));
+    brush = new QBrush;
+    *brush = Item->brush();
+
+    setBrush(*brush);
     setFlag(QGraphicsRectItem::ItemIsMovable); // Устанавливаем флаг перемещения
     setFlag(QGraphicsRectItem::ItemIsSelectable); // Флаг выделения
 }
@@ -53,7 +56,7 @@ void DraggableRectItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void DraggableRectItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    setBrush(QBrush(Qt::white)); // Возвращаем цвет при отпускании
+    setBrush(*brush);
     QGraphicsRectItem::mouseReleaseEvent(event); // Вызываем базовый обработчик
 }
 
@@ -62,7 +65,9 @@ void DraggableRectItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 DraggableEllipseItem::DraggableEllipseItem(QGraphicsEllipseItem *Item)
     : QGraphicsEllipseItem(Item->rect())
 {
-    setBrush(QBrush(Qt::white));
+    *brush = Item->brush();
+
+    setBrush(*brush);
     setFlag(QGraphicsEllipseItem::ItemIsMovable); // Устанавливаем флаг перемещения
     setFlag(QGraphicsEllipseItem::ItemIsSelectable); // Флаг выделения
 }
@@ -80,16 +85,18 @@ void DraggableEllipseItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void DraggableEllipseItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    setBrush(QBrush(Qt::white)); // Возвращаем цвет при отпускании
+    setBrush(*brush);
     QGraphicsEllipseItem::mouseReleaseEvent(event); // Вызываем базовый обработчик
 }
 
 // TRIANGLE
 
-DraggableTriangleItem::DraggableTriangleItem(QGraphicsPolygonItem *item)
-    : QGraphicsPolygonItem(item->polygon())
+DraggableTriangleItem::DraggableTriangleItem(QGraphicsPolygonItem *Item)
+    : QGraphicsPolygonItem(Item->polygon())
 {
-    setBrush(QBrush(Qt::white));
+    *brush = Item->brush();
+
+    setBrush(*brush);
     setFlag(QGraphicsItem::ItemIsMovable);   // Устанавливаем флаг перемещения
     setFlag(QGraphicsItem::ItemIsSelectable); // Устанавливаем флаг выделения
 }
@@ -107,6 +114,6 @@ void DraggableTriangleItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void DraggableTriangleItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    setBrush(QBrush(Qt::white)); // Возвращаем цвет при отпускании
+    setBrush(*brush);
     QGraphicsPolygonItem::mouseReleaseEvent(event); // Вызываем базовый обработчик
 }

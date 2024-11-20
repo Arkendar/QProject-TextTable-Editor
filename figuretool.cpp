@@ -40,16 +40,19 @@ QGraphicsItem* FigureTool::addTriangle() {
 }
 
 // Метод для изменения цвета заливки
-void FigureTool::fillColor() {
+void FigureTool::fillColor(QGraphicsItem *item) {
     QColor fillColor = QColorDialog::getColor(Qt::white, nullptr, "Select Fill Color");
     if (fillColor.isValid()) {
-        for (auto *item : scene->selectedItems()) {
+        // Проверяем, есть ли элементы на сцене
+        if (!scene->items().isEmpty()) {
+            // Приводим к QAbstractGraphicsShapeItem
             if (auto *shape = dynamic_cast<QAbstractGraphicsShapeItem*>(item)) {
                 shape->setBrush(fillColor);
             }
         }
     }
 }
+
 
 // Метод для изменения цвета обводки
 void FigureTool::changeStroke() {

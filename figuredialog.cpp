@@ -19,7 +19,7 @@ FigureDialog::FigureDialog(QGraphicsScene *scene, QGraphicsItem *currentItem, QW
 
     // Кнопка для выбора цвета заливки
     connect(ui->FillButton, &QPushButton::clicked, this, [this]() {
-        FigureTools->fillColor();
+        FigureTools->fillColor(currentPreviewItem);
     });
 
     connect(ui->okButton, &QPushButton::clicked, this, &FigureDialog::acceptFigure);

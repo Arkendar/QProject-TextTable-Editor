@@ -19,7 +19,7 @@ public:
 
     QGraphicsItem* addTriangle();
 
-    void fillColor();
+    void fillColor(QGraphicsItem *item);
 
     void changeStroke();
 

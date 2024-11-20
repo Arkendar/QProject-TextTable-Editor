@@ -20,6 +20,7 @@ class DraggableRectItem : public QGraphicsRectItem
 public:
     explicit DraggableRectItem(QGraphicsRectItem *rectItem);
     QGraphicsRectItem *rectItem;
+    QBrush *brush;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -31,7 +32,8 @@ class DraggableEllipseItem : public QGraphicsEllipseItem
 {
 public:
     explicit DraggableEllipseItem(QGraphicsEllipseItem *Item);
-    QGraphicsRectItem *Item;
+    QGraphicsEllipseItem *Item;
+    QBrush *brush;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -43,6 +45,8 @@ class DraggableTriangleItem : public QGraphicsPolygonItem
 {
 public:
     explicit DraggableTriangleItem(QGraphicsPolygonItem *Item);
+    QGraphicsPolygonItem *Item;
+    QBrush *brush;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
