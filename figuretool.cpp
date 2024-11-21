@@ -39,6 +39,22 @@ QGraphicsItem* FigureTool::addTriangle() {
     return item;
 }
 
+QGraphicsTextItem* FigureTool::addText(const QString& text)
+{
+    QGraphicsTextItem* textItem = new QGraphicsTextItem(text);
+
+    // Устанавливаем начальную позицию текста (например, центр сцены)
+    textItem->setPos(50, 50);
+
+    // Настройка текста (опционально: шрифт, размер, цвет и т.д.)
+    QFont font("Arial", 14); // Шрифт Arial, размер 14
+    textItem->setFont(font);
+    textItem->setDefaultTextColor(Qt::black);
+    scene->addItem(textItem);
+
+    return textItem;
+}
+
 // Метод для изменения цвета заливки
 void FigureTool::fillColor(QGraphicsItem *item) {
     QColor fillColor = QColorDialog::getColor(Qt::white, nullptr, "Select Fill Color");
@@ -94,7 +110,20 @@ void FigureTool::resizeShape(QGraphicsItem *item) {
             polygonItem->setPolygon(scaledPolygon);
         }
     }
+    // Для текста
+    else if (auto *textItem = dynamic_cast<QGraphicsTextItem *>(item)) {
+        QFont currentFont = textItem->font();
+        bool ok;
+        int newFontSize = QInputDialog::getInt(nullptr, "Resize Text",
+                                               "Enter new font size:",
+                                               currentFont.pointSize(), 1, 100, 1, &ok);
+        if (ok) {
+            currentFont.setPointSize(newFontSize); // Устанавливаем новый размер шрифта
+            textItem->setFont(currentFont);
+        }
+    }
 }
+
 
 
 // Метод для изменения цвета обводки

@@ -91,6 +91,11 @@
         <string>Треугольник</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>Текст</string>
+       </property>
+      </item>
      </widget>
     </item>
     <item>

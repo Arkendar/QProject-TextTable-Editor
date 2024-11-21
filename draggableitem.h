@@ -54,4 +54,17 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
+class DraggableTextItem : public QGraphicsTextItem
+{
+public:
+    explicit DraggableTextItem(QGraphicsTextItem *Item);
+    DraggableTextItem *Item;
+    QColor *brush;
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+};
+
 #endif // DRAGGABLEITEM_H

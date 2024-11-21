@@ -79,6 +79,8 @@ void FigureDialog::updatePreview()
         QPolygonF triangle;
         triangle << QPointF(75, 25) << QPointF(125, 75) << QPointF(25, 75);
         currentPreviewItem = FigureTools->addTriangle();
+    }else if (figureType == "Текст"){
+        QString text = QInputDialog::getText(this, "Введите текст", "Текст:");
+        currentPreviewItem = FigureTools->addText(text);
     }
 }
-

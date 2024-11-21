@@ -19,6 +19,8 @@ public:
 
     QGraphicsItem* addTriangle();
 
+    QGraphicsTextItem* addText(const QString& text);
+
     void fillColor(QGraphicsItem *item);
 
     void changeStroke();

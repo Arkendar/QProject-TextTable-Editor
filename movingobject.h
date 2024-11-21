@@ -22,7 +22,7 @@ public:
     void checkCollision();  // Проверка на столкновение
     void checkBoundaryCollision();
 
-    QString path = ":/sound/oan1.wav";
+    QString path = ":/sound/amezing.wav";
 };
 
 #endif // MOVINGOBJECT_H
